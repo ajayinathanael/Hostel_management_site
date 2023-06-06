@@ -1,0 +1,1 @@
+# A hostel management system, it helps students to book hostel rooms and admins to manage both rooms and students. Built using Nodejs, Express and Mongoose

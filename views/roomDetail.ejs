@@ -1,0 +1,84 @@
+
+<%- include('partials/header') %>
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg bg-light text-dark  py-3 fixed-top">
+  <div class="container">
+      <a href="index.html" class="navbar-brand">Hostel Management System</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ran">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="ran">
+        <ul class="navbar-nav ms-auto"> 
+          <% if(user){ %>
+            <li class="navbar-item">
+              <a href="/dashboard" class="nav-link">Dashboard</a>
+            </li>
+          <%}else{ %>
+          <li class="navbar-item">
+            <a href="/signup" class="nav-link">Signup</a>
+          </li>
+          <li class="navbar-item">
+            <a href="/login" class="nav-link">Login</a>
+          </li>
+          <%} %>
+          <li class="navbar-item">
+            <a href="/" class="nav-link">Back</a>
+          </li>
+        </ul>
+      </div>
+  </div>
+</nav>
+
+
+<!-- detail -->
+<section>
+<div class="container my-5 h-100 py-5">
+      <img class="img-fluid" src="../uploads/<%= rooms.roomImage %>" alt="image">
+</div>
+</section>
+
+<!-- About room -->
+<div class="content">
+<div class="container py-3 bg-light text-dark mt-5">
+  <div class="row">
+    <div class="col-12 cold-md-6 col-lg-6">
+      <h2>Quick facts</h2>
+      <p><i class="fa fa-flag" aria-hidden="true"></i> Fully Air Conditioned</p>
+      <p><i class="fa fa-flag" aria-hidden="true"></i> Friendly customer service</p>
+      <p><i class="fa fa-flag" aria-hidden="true"></i> Food, drinks and snacks Available</p>
+      <p><i class="fa fa-flag" aria-hidden="true"></i> Perfect place to spend the night</p>
+    </div>
+    <div class="col-12 cold-md-6 col-lg-6">
+      <h2>About Hostel <%= rooms.title %></h2>
+      <p> <%= rooms.description %> </p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Login -->
+<div class="Login class">
+<div class="container my-5 p-5 text-center text-dark shadow">
+  <div class="d-flex justify-content-evenly">
+    <h3>What are you waiting for?</h3>
+    <button class="btn btn-info text-light"> <a href="/login" style="text-decoration: none; color: white;"> LOGIN TO BOOK ROOM </a> </button>
+  </div>
+</div>
+</div>
+
+<!-- Book Room -->
+<div class="Login class">
+  <% if(user){ %>
+<div class="container my-5 p-5 text-center text-dark shadow">
+  <div class="d-flex justify-content-evenly">
+    <h3>What are you waiting for?</h3>
+    <button class="btn btn-success text-light"> <a href="" style="text-decoration: none; color: white;"> CLICK TO BOOK ROOM </a> </button>
+    <% } %>
+  </div>
+</div>
+</div>
+
+<%- include('partials/footer') %>
