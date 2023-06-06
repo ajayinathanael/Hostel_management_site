@@ -5,7 +5,6 @@ const User = require('../model/hotel_users');
 const {promisify} = require('util');
 const Room = require('../model/rooms');
 const multer = require('multer');
-const jwt = require('jsonwebtoken');
 const cookieParser = require("cookie-parser");
 const express = require('express');
 const router = express.Router();

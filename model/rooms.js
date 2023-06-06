@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
- 
 // MODEL
 const roomSchema = new mongoose.Schema({
     
