@@ -7,7 +7,7 @@
     <div class="bg-white " id="sidebar-wrapper">
 
       <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
-        <i class="fas fa-user-secret me-2"></i> Hello <%= user.username %>
+        <i class="fas fa-user-secret me-2"></i> Hello <%= user.lastname %>
       </div>
 
       <div class="list-group list-group-flush my-3">
@@ -47,7 +47,7 @@
         
         <div class="d-flex align-items-center">
           <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
-          <h2 class="fs-2 m-0">Welcome <%= user.username %></h2>
+          <h2 class="fs-2 m-0">Welcome <%= user.firstname %> <%= user.lastname %></h2>
         </div>
   
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
@@ -61,8 +61,8 @@
               <a href="#" class="nav-link dropdown-toggle second-text fw-bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
                 <!-- <i class="fas fa-user me-2"></i> John Doe -->
-                <img src="images/bbc-nodejs.png" width="40" height="40" class="img-fluid rounded" alt="User Image"><span class="mx-2"><%= user.username %></span>
-
+                <!-- <img src="images/bbc-nodejs.png" width="40" height="40" class="img-fluid rounded" alt="User Image"> -->
+                <span class="mx-2"><%= user.username %></span>
               </a>
               
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -81,8 +81,8 @@
       <!-- inside content -->
       <div class="container-fluid px-4">
         
-        <!-- first content ADMIN -->
-        <div class="row my-2 g-3">
+        <!-- first content user -->
+        <!-- <div class="row my-2 g-3">
           <div class="col-md-3">
             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
               <div>
@@ -122,138 +122,114 @@
               <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <!-- second content (settings) -->
-        <div class="row my-5" id="settings">
-          <h3 class="mb-3">Settings </h3>
-          <p>No user found</p>
+        <!-- second content (Your details) -->
+        <div class="row my-5" id="Your details">
+          <h3 class="mb-3">Your details </h3>
 
           <div class="bg-white">
-            <h3><%= user.username %></h3>
-            <p>Department</p>
-            <p>Address</p>         
-            <p>Department</p>
-            <p>Address</p>         
+            <p><%= user.firstname %></p>        
+            <p><%= user.lastname %></p>        
+            <p><%= user.username %></p>        
           </div>
 
         </div>
-
+ 
         <!-- third content (table recent users) ADMIN -->
-        <div class="row my-5">
-          <h3 class="fs-4 mb-3">Recent users</h3>
-          <div class="col">
-            <p>No user found</p>
+        <% if(user.role == 'admin'){ %>
+          <div class="row my-5">
+            <h3 class="fs-4 mb-3">Recent users</h3>
+            <div class="col">
+              
+              <% if(!user){ %>
+                <p>No user found</p>
+              <% } %>
+  
+              <table class="table bg-white rounded shadow-sm">
+  
+                <thead>
+                  <tr>
+                    <!-- <th scope="col" width="50">#</th> -->
+                    <th scope="col">Lastname</th>
+                    <th scope="col">firstname</th>
+                    <th scope="col">username</th>
+                  </tr>
+                </thead>
 
-            <table class="table bg-white rounded shadow-sm">
+                <tbody>
+                  <% users.forEach((user)=>{ %>
 
-              <thead>
-                <tr>
-                  <th scope="col" width="50">#</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
+                    <tr>
+                      <!-- <td scope="row">1</td> -->
+                      <td> <%= user.lastname %> </td>
+                      <td> <%= user.firstname %> </td>
+                      <td> <%= user.username %> </td>
+                    </tr>
+                  <% }); %>
 
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>TV</td>
-                  <td>Micheal</td>
-                  <td>$500</td>
-                  <td class="btn btn-danger text-dark">Delete</td>
-                </tr>
 
-                <tr>
-                  <th scope="row">2</th>
-                  <td>TV</td>
-                  <td>Micheal</td>
-                  <td>$500</td>
-                  <td class="btn btn-danger text-dark">Delete</td>
-                </tr>
-
-                <tr>
-                  <th scope="row">3</th>
-                  <td>TV</td>
-                  <td>Micheal</td>
-                  <td>$500</td>
-                  <td class="btn btn-danger text-dark">Delete</td>
-                </tr>
-
-                <tr>
-                  <th scope="row">4</th>
-                  <td>TV</td>
-                  <td>Micheal</td>
-                  <td>$500</td>
-                  <td class="btn btn-danger text-dark">Delete</td>
-                </tr>
-              </tbody>
-
-            </table>
+                </tbody>
+  
+              </table>
+            </div>
           </div>
-        </div>
+        <% } %>
 
         <!-- fourth content (table recent rooms) ADMIN -->
-        <div class="row my-5">
-          <h3 class="fs-4 mb-3">Recent Rooms</h3>
-          <p>No available room</p>
-          <div class="col">
-            <table class="table bg-white rounded shadow-sm">
+        <% if(user.role == 'admin'){ %>
+          <div class="row my-5">
+            <h3 class="fs-4 mb-3">Recent Rooms</h3>
+            <div class="col">
+              <table class="table bg-white rounded shadow-sm">
+                <thead>
 
-              <thead>
-                <tr>
-                  <th scope="col" width="50">#</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Customer</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
+                  <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                  </tr>
 
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>TV</td>
-                  <td>Micheal</td>
-                  <td>$500</td>
-                  <td class="btn btn-danger text-dark">Delete</td>
-                </tr>
+                </thead>
 
-                <tr>
-                  <th scope="row">2</th>
-                  <td>TV</td>
-                  <td>Micheal</td>
-                  <td>$500</td>
-                  <td class="btn btn-danger text-dark">Delete</td>
-                </tr>
+                <tbody>
 
-                <tr>
-                  <th scope="row">3</th>
-                  <td>TV</td>
-                  <td>Micheal</td>
-                  <td>$500</td>
-                  <td class="btn btn-danger text-dark">Delete</td>
-                </tr>
+                  <% rooms.forEach((room)=>{ %>
 
-                <tr>
-                  <th scope="row">4</th>
-                  <td>TV</td>
-                  <td>Micheal</td>
-                  <td>$500</td>
-                  <td class="btn btn-danger text-dark">Delete</td>
-                </tr>
-              </tbody>
+                    <tr>
+                      <!-- <td scope="row">1</td> -->
+                      <td> <%= room.title %> </td>
+                      <td> <%= room.description %> </td>
+                      <td> <%= room.price %> </td>
+                    </tr>
+                  <% }); %>
 
-            </table>
+                  <!-- <tr>
+                    <th scope="row">1</th>
+                    <td>TV</td>
+                    <td>Micheal</td>
+                    <td>$500</td>
+                    <td class="btn btn-danger text-dark">Delete</td>
+                  </tr>
+  
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>TV</td>
+                    <td>Micheal</td>
+                    <td>$500</td>
+                    <td class="btn btn-danger text-dark">Delete</td>
+                  </tr> -->
+  
+                </tbody>
+  
+              </table>
+            </div>
           </div>
-        </div>
+        <% } %>
+
 
       </div>
-
     </div>
-
   </div>
 
     <script>

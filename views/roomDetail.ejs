@@ -61,10 +61,13 @@
 
 <!-- Login -->
 <div class="Login class">
+  <% if(!user){ %>
 <div class="container my-5 p-5 text-center text-dark shadow">
   <div class="d-flex justify-content-evenly">
-    <h3>What are you waiting for?</h3>
-    <button class="btn btn-info text-light"> <a href="/login" style="text-decoration: none; color: white;"> LOGIN TO BOOK ROOM </a> </button>
+      <h3>What are you waiting for?</h3>
+      <button class="btn btn-info text-light"> <a href="/login" style="text-decoration: none; color: white;"> LOGIN TO BOOK ROOM </a> </button>
+    <% } %>
+
   </div>
 </div>
 </div>

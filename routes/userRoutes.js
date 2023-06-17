@@ -69,10 +69,15 @@ router.get("/dashboard", async (req,res,next)=>{
     res.locals.user = req.user;
 
     if(req.isAuthenticated()){
-        res.render('dashboard');
+
+        const details= await User.find();
+        const room =await Room.find();
+        res.render('dashboard', {users:details, rooms:room });
+
     }else{ 
         res.redirect("/");
     }
+    
 });
 
 router.get("/logout", (req,res,next)=>{
@@ -128,7 +133,17 @@ router.post("/signup", async(req,res,next)=>{
     //     // console.log(err);
     //     res.render('404');
     // }
-    User.register({username: req.body.username}, req.body.password, function(err, user){
+    
+    // User.register({username: req.body.username}, req.body.password, function(err, user){
+    
+    User.register(
+        {
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname
+        }, 
+        req.body.password, 
+        function(err, user){
         if(err){
             return next(err);
             res.redirect('/signup');
@@ -141,7 +156,7 @@ router.post("/signup", async(req,res,next)=>{
 });
 
 router.post("/login",  (req,res)=>{
-    
+     
     const user = new User({
         username: req.body.username,
         password: req.body.password

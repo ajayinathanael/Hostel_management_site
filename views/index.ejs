@@ -17,10 +17,7 @@
                 <a href="/dashboard" class="nav-link">Dashboard </a>
             </li>
             <li class="navbar-item">
-                <a href="/dashboard" class="nav-link"><%= user.username %> </a>
-            </li>
-            <li class="navbar-item">
-                <a href="/" class="nav-link">Logout</a>
+                <a href="/dashboard" class="nav-link"><%= user.firstname %> <%= user.lastname %> </a>
             </li>
             <%}else{ %>
                 <li class="navbar-item">

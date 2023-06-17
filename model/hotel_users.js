@@ -13,10 +13,8 @@ const userSchema = new mongoose.Schema({
     //     type: String,
     //     required: [true, 'Please choose a username!']
     // },
+    
     email:String,
-    dateOfBirth: {
-        type: String
-    },
     password: {
         type: String,
     },
@@ -24,12 +22,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'default.jpg'
     },
-    // ,
-    // role: {
-    //     type: String,
-    //     enum: ['staff', 'customer'],
-    //     default: 'staff'
-    // }
+    firstname: {
+        type: String
+    },
+    lastname: {
+        type: String
+    },
+    role: {
+        type: String,
+        default: 'customer'
+    }
 });
  
 userSchema.plugin(passportLocalMongoose);
