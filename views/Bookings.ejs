@@ -1,0 +1,80 @@
+<%- include('partials/header') %>
+
+ <!-- navbar -->
+ <nav class="navbar navbar-expand-lg bg-light text-dark  py-3 fixed-top">
+    <div class="container">
+        <a href="/" class="navbar-brand">hostel Management System</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ran">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="ran">
+          <ul class="navbar-nav ms-auto"> 
+
+            
+            <li class="navbar-item">
+                <a href="/dashboard" class="nav-link">My Dashboard</a>
+            </li>
+            <li class="navbar-item">
+                <a href="/logout" class="nav-link">Logout</a>
+            </li>
+            <li class="navbar-item">
+              <a href="/" class="nav-link">Home</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Available Rooms + description -->
+<section class="my-4">
+    
+    <h1 class="">All Bookings</h1>
+    <!-- if no booking -->
+    <% if(myBooking.length<1){ %>
+        <div class="mb-2">
+            <p class="shadow d-inline-block text-dark">No Bookings made</p> <br>
+            <button class="btn btn-primary"> <a href="/" style="text-decoration: none; color: white;">Book a Room</a></button>
+        </div>
+       <% } %>
+
+    <div class="row g-5">
+        <% myBooking.forEach((bookings)=>{ %>
+
+        <div class="my-4 col col-12 col-lg-4 col-md-12 col-sm-12">
+            <div class="card card-light">
+                    <img class="card-img-top" src="../uploads/<%= bookings.roomImage %>" alt="">
+                <div class="card-body">
+                    <h2 class="card-title"><%= bookings.title %></h2>
+                    <p class="card-subtitle text-muted mb-3"><%= bookings.description %></p>
+                    <div class="row">
+                        <div class="col col-md-6">
+                            <p><i class="fa fa-map-marker" aria-hidden="true"></i> <%= bookings.location %></p>
+                            <!-- <i class="fas fa-cloud"></i> -->
+                        </div>
+                        <div class="col col-md-6">
+                            <p><i class="fa fa-credit-card" aria-hidden="true"></i> <%= bookings.price %></p>
+                        </div>
+                        <div class="col col-md-6">
+                            <p><i class="fa fa-flag" aria-hidden="true"></i> <%= bookings.nearby %></p>
+                        </div>
+                        <div class="col col-md-6">
+                            <p><i class="fa fa-users" aria-hidden="true"></i> <%= bookings.occupant %></p>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-danger rounded-pill p-3 mb-2 mx-3">
+                        <a href="#" style="text-decoration: none; color: white;">Proceed to pay</a>
+                        </button>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+        </div>
+</section>
+
+<%- include('partials/footer') %>

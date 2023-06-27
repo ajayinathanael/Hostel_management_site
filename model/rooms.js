@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // MODEL
 const roomSchema = new mongoose.Schema({
-    
+     
     roomImage: {
         type: String,
         default: 'default.jpg'

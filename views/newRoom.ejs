@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
 
-
+ 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
     <div class="container">
@@ -20,48 +20,55 @@
     </div>
 </nav>
 
-<div class="header container pt-3">
-<h2>Add New Room</h2>
-</div>
+<% if(user.role == 'admin'){ %>
 
-<div class="container">
-<form action="/newRoom" method="POST" enctype="multipart/form-data">
-    <div class="row">
+    <div class="header container pt-3">
+    <h2>Add New Room</h2>
+    </div>
+    
+    <div class="container">
+    <form action="/newRoom" method="POST" enctype="multipart/form-data">
+        <div class="row">
+    
+            <div class="col-md-10 mb-3 form-group">
+                Upload Room Image: <input type="file" name="image" class="form-control text-black" required>
+            </div>
+    
+            <div class="col-md-10 mb-3 form-group">
+                <input type="text" class="form-control" placeholder="title" name="title" required>
+            </div>
+            
+            <div class="col-md-10 mb-3 form-group">
+                <textarea name="description" placeholder="description" class="form-control" rows="20" cols="50"></textarea>
+            </div>
+    
+            <div class="col-md-10 mb-3 form-group">
+                <input type="text" class="form-control" placeholder="location" name="location" required>
+            </div>
+    
+            <div class="col-md-10 mb-3 form-group">
+                <input type="text" class="form-control" placeholder="price" name="price" required>
+            </div>
+            
+            <div class="col-md-10 mb-3 form-group">
+                <input type="text" class="form-control" placeholder="nearby" name="nearby" required>
+            </div>
+    
+            <div class="col-md-10 mb-3 form-group">
+                <input type="number" class="form-control" placeholder="Number of occupant" name="occupant" required>
+            </div>
+    
+            <div class="col-md-10 mb-3 form-group">
+                <a href="/" class="btn btn-warning">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+       
+    </form>
+    </div>
 
-        <div class="col-md-10 mb-3 form-group">
-            Upload Room Image: <input type="file" name="image" class="form-control text-black" required>
-        </div>
+<% }else{ %>
+    <h1>You don't have privilege to Add Room</h1>
+<% } %>
 
-        <div class="col-md-10 mb-3 form-group">
-            <input type="text" class="form-control" placeholder="title" name="title" required>
-        </div>
-        
-        <div class="col-md-10 mb-3 form-group">
-            <textarea name="description" placeholder="description" class="form-control" rows="20" cols="50"></textarea>
-        </div>
-
-        <div class="col-md-10 mb-3 form-group">
-            <input type="text" class="form-control" placeholder="location" name="location" required>
-        </div>
-
-        <div class="col-md-10 mb-3 form-group">
-            <input type="text" class="form-control" placeholder="price" name="price" required>
-        </div>
-        
-        <div class="col-md-10 mb-3 form-group">
-            <input type="text" class="form-control" placeholder="nearby" name="nearby" required>
-        </div>
-
-        <div class="col-md-10 mb-3 form-group">
-            <input type="number" class="form-control" placeholder="Number of occupant" name="occupant" required>
-        </div>
-
-        <div class="col-md-10 mb-3 form-group">
-            <a href="/" class="btn btn-warning">Cancel</a>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-   
-</form>
-</div>
 
 <%- include('partials/footer') %>

@@ -4,7 +4,7 @@
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg bg-light text-dark  py-3 fixed-top">
   <div class="container">
-      <a href="index.html" class="navbar-brand">Hostel Management System</a>
+      <a href="/" class="navbar-brand">Hostel Management System</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ran">
         <span class="navbar-toggler-icon"></span>
@@ -15,6 +15,9 @@
           <% if(user){ %>
             <li class="navbar-item">
               <a href="/dashboard" class="nav-link">Dashboard</a>
+            </li>
+            <li class="navbar-item">
+              <a href="/Mybookings" class="nav-link">My bookings</a>
             </li>
           <%}else{ %>
           <li class="navbar-item">
@@ -72,13 +75,21 @@
 </div>
 </div>
 
-<!-- Book Room -->
+<!-- Logged in Book Room -->
 <div class="Login class">
   <% if(user){ %>
 <div class="container my-5 p-5 text-center text-dark shadow">
   <div class="d-flex justify-content-evenly">
     <h3>What are you waiting for?</h3>
-    <button class="btn btn-success text-light"> <a href="" style="text-decoration: none; color: white;"> CLICK TO BOOK ROOM </a> </button>
+
+    <!-- <form action="/bookings/roomDetail/:id" method="get"> -->
+      
+      <button class="btn btn-success text-light">
+        <a href="/bookings/roomDetail/<%= rooms._id %>" style="text-decoration: none; color: white;">Book Room</a>
+        </button>
+      <!-- <button type="submit" class="btn btn-success text-light">Book</button> -->
+    <!-- </form> -->
+
     <% } %>
   </div>
 </div>

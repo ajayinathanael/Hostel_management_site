@@ -14,8 +14,8 @@
         <a href="" class="list-group-item list-group-item-action bg-transparent second-text active">
           <i class="fas fa-tachometer-alt me-2"></i> Dashboard
         </a>
-        <a href="#settings" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-          <i class="fas fa-project-diagram me-2"></i> Settings
+        <a href="#settings" class="list-group-item list-group-item-action bg-transparent second-text active">
+          <i class="fas fa-project-diagram me-2"></i> My Bookings
           <!-- <i class="fas fa-cogs"> Settings -->
         </a>
         <!-- admin -->
@@ -33,7 +33,7 @@
         <a href="" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
           <i class="fas fa-comment-dots me-2"></i> Chat
         </a>
-        <a href="/logout" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+        <a href="/logout" class="list-group-item list-group-item-action bg-transparent second-text active">
           <i class="fas fa-sign-out-alt fa-sm"></i> Logout
         </a>
       </div>
@@ -45,10 +45,18 @@
       <!-- navbar and dropdown -->
       <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
         
+        <% if(user.role == 'admin'){ %>
         <div class="d-flex align-items-center">
           <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
-          <h2 class="fs-2 m-0">Welcome <%= user.firstname %> <%= user.lastname %></h2>
+          <h2 class="fs-2 m-0">Welcome Admin <%= user.lastname %></h2>
         </div>
+        <% }else{ %>
+          <div class="d-flex align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+            <h2 class="fs-2 m-0">Welcome <%= user.firstname %> <%= user.lastname %></h2>
+          </div>
+        <% } %>
+
   
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
           <span class="navbar-toggler-icon"></span>
@@ -66,8 +74,8 @@
               </a>
               
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <a href="/" class="dropdown-item"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Home</a>
               <a href="#" class="dropdown-item"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile</a>
-              <a href="#settings" class="dropdown-item"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings</a>
               <a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout</a>
             </div>
 
@@ -81,62 +89,32 @@
       <!-- inside content -->
       <div class="container-fluid px-4">
         
-        <!-- first content user -->
-        <!-- <div class="row my-2 g-3">
-          <div class="col-md-3">
-            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-              <div>
-                <h3 class="fs-2">270</h3>
-                <p class="fs-5">Products</p>
-              </div>
-              <i class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-              <div>
-                <h3 class="fs-2">4920</h3>
-                <p class="fs-5">sales</p>
-              </div>
-              <i class="fas fa-hand-holding fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-              <div>
-                <h3 class="fs-2">3899</h3>
-                <p class="fs-5">Delivery</p>
-              </div>
-              <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-              <div>
-                <h3 class="fs-2">%25</h3>
-                <p class="fs-5">Increase</p>
-              </div>
-              <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-            </div>
-          </div>
-        </div> -->
-
         <!-- second content (Your details) -->
         <div class="row my-5" id="Your details">
+          
           <h3 class="mb-3">Your details </h3>
-
           <div class="bg-white">
-            <p><%= user.firstname %></p>        
-            <p><%= user.lastname %></p>        
-            <p><%= user.username %></p>        
+            <p><span class="fw-bold">firstname:-</span> <%= user.firstname %></p>        
+            <p><span class="fw-bold">lastname:-</span> <%= user.lastname %></p>        
+            <p><span class="fw-bold">Email:-</span> <%= user.username %></p>        
+          </div>
+
+          <h3 class="mt-3">Your Bookings </h3>
+          <div class="bg-white">
+            <% users.forEach((bookings)=>{ %>
+              <p><span class="fw-bold"> Title:-</span>  <%= bookings.title %></p>        
+              <p><span class="fw-bold"> description:-</span>  <%= bookings.description %></p>        
+              <p><span class="fw-bold"> location:-</span> <%= bookings.location %></p>        
+              <p><span class="fw-bold"> price:-</span> <%= bookings.price %></p>        
+              <p><span class="fw-bold"> nearby:-</span> <%= bookings.nearby %></p>        
+              <p><span class="fw-bold"> occupant:-</span> <%= bookings.occupant %></p>   
+              <hr>     
+            <% }) %>
           </div>
 
         </div>
  
-        <!-- third content (table recent users) ADMIN -->
+        <!--(table recent users) ADMIN -->
         <% if(user.role == 'admin'){ %>
           <div class="row my-5">
             <h3 class="fs-4 mb-3">Recent users</h3>
@@ -176,7 +154,7 @@
           </div>
         <% } %>
 
-        <!-- fourth content (table recent rooms) ADMIN -->
+        <!--  (table recent rooms) ADMIN -->
         <% if(user.role == 'admin'){ %>
           <div class="row my-5">
             <h3 class="fs-4 mb-3">Recent Rooms</h3>

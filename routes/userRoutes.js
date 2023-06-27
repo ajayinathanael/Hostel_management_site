@@ -2,8 +2,8 @@
 
 const dotenv = require('dotenv');
 const User = require('../model/hotel_users');
-const {promisify} = require('util');
 const Room = require('../model/rooms');
+const {promisify} = require('util');
 const multer = require('multer');
 const cookieParser = require("cookie-parser");
 const express = require('express');
@@ -34,7 +34,7 @@ const upload = multer({
     limits:{
         fileSize: 1024* 1024* 3,
     },
-})
+});
 
 
 // ALL GET routes
@@ -49,6 +49,7 @@ router.get("/", async(req,res,next)=>{
     }
 
     if(req.isAuthenticated()){
+
         res.render('index', {room:doc});
     }else{ 
         res.render('index', {room:doc});
@@ -59,10 +60,46 @@ router.get("/roomDetail/:id", async(req,res)=>{
     res.locals.user = req.user;
 
     const requestedRoomId= req.params.id;
+    // const user=req.user._id;
+    // console.log({user,requestedRoomId});
+    // console.log(req.query);
 
     let room = await Room.findOne({_id: requestedRoomId});
 
+    // const bookings= await Bookings.create(user);
+
     res.render('roomDetail', {rooms:room});
+});
+
+router.get("/bookings/roomDetail/:id", async(req,res)=>{
+
+    // RoomID
+    const requestedRoomId= req.params.id;
+    
+    // user id and update DB with RoomID
+    const doc = await User.findByIdAndUpdate(req.user._id, {
+        $push: {
+            room: requestedRoomId
+        }
+    });
+    res.redirect('/Mybookings');
+});
+
+router.get("/Mybookings", async(req,res)=>{
+
+    // Get userId, populate with RoomDB
+    let booked = 
+    await User.findOne({_id: req.user._id})
+    .populate({
+        path:'room',
+        model: Room
+    });
+    
+    // Get room from RoomDB
+    const bookedRoom= booked.room;
+
+    res.render('Bookings',{myBooking:bookedRoom});
+
 });
 
 router.get("/dashboard", async (req,res,next)=>{
@@ -70,9 +107,18 @@ router.get("/dashboard", async (req,res,next)=>{
 
     if(req.isAuthenticated()){
 
-        const details= await User.find();
+        const details= await User.findOne({_id: req.user._id})
+        .populate({
+            path:'room',
+            model: Room
+        });
+
+        const myBookings = details.room;
+
         const room =await Room.find();
-        res.render('dashboard', {users:details, rooms:room });
+        // console.log(req.user);
+        res.render('dashboard', {users:myBookings,rooms:room });
+
 
     }else{ 
         res.redirect("/");
@@ -94,14 +140,25 @@ router.get("/signup", (req,res)=>{
 router.get("/login", (req,res)=>{
     res.render('login');
 });
+ 
+router.get("/newRoom", async(req,res)=>{
 
-router.get("/newRoom", (req,res)=>{
-    res.render('newRoom');
+    res.locals.user = req.user;
+
+    if(req.isAuthenticated()){
+        res.render('newRoom');
+        // res.render('dashboard', {users:details, rooms:room });
+
+    }else{ 
+        res.redirect("/login");
+    }
+
 });
 
 
  
 // ALL POST routes
+
 router.post("/signup", async(req,res,next)=>{
 
     // upload.single('photo'),
@@ -175,7 +232,6 @@ router.post("/login",  (req,res)=>{
     })
 });
 
-
 router.post("/newRoom", upload.single('image'), async(req,res)=>{
 
     let roomDetails = ({
@@ -198,5 +254,29 @@ router.post("/newRoom", upload.single('image'), async(req,res)=>{
     }
 
 });
+
+// router.post("/roomDetail/:id/user/:id/bookings", async(req,res)=>{
+//     // res.locals.user = req.user;
+
+//     // const requestedRoomId= req.params.id;
+
+//     // let room = await Room.findOne({_id: requestedRoomId});
+
+//     // res.render('roomDetail', {rooms:room});
+
+//     // if(req.isAuthenticated()){
+        
+//     //     console.log(req.body.user);
+//     //     const bookings= await Bookings.find();
+    
+//     //     res.render('Bookings',{booking:bookings});
+
+//     //     res.render('dashboard', {users:details, rooms:room });
+
+//     // }else{ 
+//     //     res.redirect("/");
+//     // }
+
+// });
 
 module.exports = router;

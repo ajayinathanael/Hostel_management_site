@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
+const Room= require('./../model/rooms');
 
 // MODEL
 const userSchema = new mongoose.Schema({
@@ -28,6 +29,10 @@ const userSchema = new mongoose.Schema({
     lastname: {
         type: String
     },
+    room: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Room"
+    }],
     role: {
         type: String,
         default: 'customer'
