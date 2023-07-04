@@ -12,18 +12,18 @@
 
       <div class="list-group list-group-flush my-3">
         <a href="" class="list-group-item list-group-item-action bg-transparent second-text active">
-          <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+          <i class="fas fa-tachometer-alt me-2"></i>Your Details
         </a>
         <a href="#settings" class="list-group-item list-group-item-action bg-transparent second-text active">
-          <i class="fas fa-project-diagram me-2"></i> My Bookings
+          <i class="fas fa-project-diagram me-2"></i> Your Bookings
           <!-- <i class="fas fa-cogs"> Settings -->
         </a>
-        <!-- admin -->
-        <a href="/signup" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-          <i class="fas fa-chart-line me-2"></i> New user
+        <a href="#settings" class="list-group-item list-group-item-action bg-transparent second-text active">
+          <i class="fas fa-tachometer-alt me-2"></i> Recent Users
         </a>
-        <!-- admin -->
-
+        <a href="#settings" class="list-group-item list-group-item-action bg-transparent second-text active">
+          <i class="fas fa-tachometer-alt me-2"></i> Recent Rooms
+        </a>
         <a href="/newRoom" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
           <i class="fas fa-shopping-cart me-2"></i> New Room
         </a>
@@ -89,7 +89,7 @@
       <!-- inside content -->
       <div class="container-fluid px-4">
         
-        <!-- second content (Your details) -->
+        <!-- second content (Your details) + bookings -->
         <div class="row my-5" id="Your details">
           
           <h3 class="mb-3">Your details </h3>
@@ -132,17 +132,19 @@
                     <th scope="col">Lastname</th>
                     <th scope="col">firstname</th>
                     <th scope="col">username</th>
+                    <th scope="col">Role</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  <% users.forEach((user)=>{ %>
+                  <% allUser.forEach((user)=>{ %>
 
                     <tr>
                       <!-- <td scope="row">1</td> -->
                       <td> <%= user.lastname %> </td>
                       <td> <%= user.firstname %> </td>
                       <td> <%= user.username %> </td>
+                      <td> <%= user.role %> </td>
                     </tr>
                   <% }); %>
 

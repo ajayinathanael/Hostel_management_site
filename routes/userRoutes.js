@@ -107,6 +107,8 @@ router.get("/dashboard", async (req,res,next)=>{
 
     if(req.isAuthenticated()){
 
+        const allUsers=await User.find();
+
         const details= await User.findOne({_id: req.user._id})
         .populate({
             path:'room',
@@ -117,7 +119,7 @@ router.get("/dashboard", async (req,res,next)=>{
 
         const room =await Room.find();
         // console.log(req.user);
-        res.render('dashboard', {users:myBookings,rooms:room });
+        res.render('dashboard', {users:myBookings,rooms:room, allUser:allUsers });
 
 
     }else{ 
