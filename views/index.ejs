@@ -56,12 +56,13 @@
             <button class="btn btn-primary"> <a href="/newRoom" style="text-decoration: none; color: white;">Add New Room</a></button>
         </div>
        <% } %>
-
+ 
         <div class="row g-5">
             <% room.forEach((rooms)=>{ %>
             <div class="col col-12 col-lg-4 col-md-12 col-sm-12">
                 <div class="card card-light">
-                        <img class="card-img-top" src="../uploads/<%= rooms.roomImage %>" alt="">
+                    <span class="badge rounded-pill badge-notification bg-danger" style="position: absolute;"><%= rooms.available %></span>    
+                    <img class="card-img-top" src="../uploads/<%= rooms.roomImage %>" alt=""> 
                     <div class="card-body">
                         <h2 class="card-title"><%= rooms.title %></h2>
                         <p class="card-subtitle text-muted mb-3"><%= rooms.description %></p>
@@ -69,7 +70,6 @@
                         <div class="row">
                             <div class="col col-md-6">
                                 <p><i class="fa fa-map-marker" aria-hidden="true"></i> <%= rooms.location %></p>
-                                <!-- <i class="fas fa-cloud"></i> -->
                             </div>
                             <div class="col col-md-6">
                                 <p><i class="fa fa-credit-card" aria-hidden="true"></i> <%= rooms.price %></p>

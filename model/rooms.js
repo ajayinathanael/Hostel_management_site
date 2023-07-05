@@ -21,6 +21,10 @@ const roomSchema = new mongoose.Schema({
     },
     occupant: { 
         type: String,
+    },
+    available:{
+        type: String,
+        default: 'Available'
     }
 });
  

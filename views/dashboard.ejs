@@ -97,10 +97,15 @@
             <p><span class="fw-bold">firstname:-</span> <%= user.firstname %></p>        
             <p><span class="fw-bold">lastname:-</span> <%= user.lastname %></p>        
             <p><span class="fw-bold">Email:-</span> <%= user.username %></p>        
+            <p><span class="fw-bold">Role:-</span> <%= user.role %></p>  
+
           </div>
 
           <h3 class="mt-3">Your Bookings </h3>
           <div class="bg-white">
+            <% if(users.length<1){ %>
+              <p>You don't have any bookings yet</p>
+            <% } %>
             <% users.forEach((bookings)=>{ %>
               <p><span class="fw-bold"> Title:-</span>  <%= bookings.title %></p>        
               <p><span class="fw-bold"> description:-</span>  <%= bookings.description %></p>        

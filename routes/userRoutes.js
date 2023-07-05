@@ -158,9 +158,7 @@ router.get("/newRoom", async(req,res)=>{
 });
 
 
- 
 // ALL POST routes
-
 router.post("/signup", async(req,res,next)=>{
 
     // upload.single('photo'),
@@ -257,28 +255,6 @@ router.post("/newRoom", upload.single('image'), async(req,res)=>{
 
 });
 
-// router.post("/roomDetail/:id/user/:id/bookings", async(req,res)=>{
-//     // res.locals.user = req.user;
-
-//     // const requestedRoomId= req.params.id;
-
-//     // let room = await Room.findOne({_id: requestedRoomId});
-
-//     // res.render('roomDetail', {rooms:room});
-
-//     // if(req.isAuthenticated()){
-        
-//     //     console.log(req.body.user);
-//     //     const bookings= await Bookings.find();
-    
-//     //     res.render('Bookings',{booking:bookings});
-
-//     //     res.render('dashboard', {users:details, rooms:room });
-
-//     // }else{ 
-//     //     res.redirect("/");
-//     // }
-
-// });
+// API routes
 
 module.exports = router;
