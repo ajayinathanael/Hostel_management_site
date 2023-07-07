@@ -25,6 +25,10 @@ const roomSchema = new mongoose.Schema({
     available:{
         type: String,
         default: 'Available'
+    },
+    paid:{
+        type: String,
+        default: 'Not paid'
     }
 });
  
