@@ -79,7 +79,7 @@ router.get("/checkout-session/:id", async(req,res)=>{
     
     if(req.isAuthenticated()){
         const room = await Room.findById(req.params.id); 
-        console.log(room);
+        // console.log(room);
 
             const session = await stripe.checkout.sessions.create({
 
@@ -100,7 +100,7 @@ router.get("/checkout-session/:id", async(req,res)=>{
                 success_url: `${req.protocol}://${req.get('host')}/`,
                 cancel_url: `${req.protocol}://${req.get('host')}/roomDetail/${req.params.id}`,
             });
-            console.log(session);
+            // console.log(session);
             // console.log(room.roomImage);
     }
     else{
