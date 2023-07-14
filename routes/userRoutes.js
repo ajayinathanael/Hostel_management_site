@@ -1,6 +1,7 @@
 // ROUTES -  /signup, /login, /logout, AUTHORIZATION - /dashboard, /newRoom, /bookRoom, */payment
 
 const dotenv = require('dotenv');
+const stripe = require("stripe")('sk_test_51LQjgQKi0GzkVsltN8aL7ynswZWiNDRPt4x2cXVtL4VGruTa3xc19CDTAImRWrMVulb4IeGsr339uMcuk1r8x6no00jsRAvjo8');
 const User = require('../model/hotel_users');
 const Room = require('../model/rooms');
 const {promisify} = require('util');
@@ -71,6 +72,45 @@ router.get("/roomDetail/:id", async(req,res)=>{
     res.render('roomDetail', {rooms:room});
 });
 
+// payment route after viewing the room
+router.get("/checkout-session/:id", async(req,res)=>{
+
+    // /bookings/roomDetail/<%= rooms._id %>
+    
+    if(req.isAuthenticated()){
+        const room = await Room.findById(req.params.id); 
+        console.log(room);
+
+            const session = await stripe.checkout.sessions.create({
+
+                line_items: [{
+                      price_data: {
+                        currency: 'ngn',
+                        unit_amount: `${room.price}` *100,
+                        product_data: {
+                            name: `${room.title}`,
+                            description: `${room.description}`,
+                            images: [`https://hostel-management-app-c9ta.onrender.com/uploads/${room.roomImage}`]
+                            // images: ['https://randomuser.me/api/portraits/med/men/46.jpg']
+                          },
+                      } ,
+                    quantity: 1,
+                  }],
+                mode: 'payment',
+                success_url: `${req.protocol}://${req.get('host')}/`,
+                cancel_url: `${req.protocol}://${req.get('host')}/roomDetail/${req.params.id}`,
+            });
+            console.log(session);
+            // console.log(room.roomImage);
+    }
+    else{
+        res.redirect('/login');
+    }
+});
+// payment route ends here
+
+
+// bookings start here
 router.get("/bookings/roomDetail/:id", async(req,res)=>{
 
     // RoomID
@@ -101,6 +141,7 @@ router.get("/Mybookings", async(req,res)=>{
     res.render('Bookings',{myBooking:bookedRoom});
 
 });
+// bookings end here
 
 router.get("/dashboard", async (req,res,next)=>{
     res.locals.user = req.user;

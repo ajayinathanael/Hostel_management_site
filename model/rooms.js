@@ -24,7 +24,11 @@ const roomSchema = new mongoose.Schema({
     },
     available:{
         type: String,
-        default: 'Available'
+        default: 'unavailable'
+    },
+    proceed_to_pay:{
+        type: String,
+        default: 'unapprove'
     },
     paid:{
         type: String,
