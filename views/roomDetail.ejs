@@ -84,8 +84,9 @@
 
     <!-- <form action="/bookings/roomDetail/:id" method="get"> -->
       
-      <button class="btn btn-success text-light">
-        <a href="/bookings/roomDetail/<%= rooms._id %>" style="text-decoration: none; color: white;">Book Room</a>
+      <!-- <button class="btn btn-success text-light" onclick="waiting()"> -->
+      <button class="btn btn-success text-light" >
+        <a href="/checkout-session/<%= rooms._id %>" style="text-decoration: none; color: white;">Book Room</a>
         </button>
       <!-- <button type="submit" class="btn btn-success text-light">Book</button> -->
     <!-- </form> -->
@@ -94,5 +95,11 @@
   </div>
 </div>
 </div>
+
+<script>
+  function waiting() {
+    alert("Room booked successfully");
+  }
+</script>
 
 <%- include('partials/footer') %>
