@@ -38,8 +38,8 @@
             
 
 <!-- Header -->
-<header class="bg-dark text-center py-5 my-5">
-    <div class="container py-5 text-light">
+<header class="text-center py-5 my-5">
+    <div class="container py-5 text-light" style="background-color: blue;">
         <h1 class="display-4 fw-bold my-4">Hostel Management System</h1>
         <p class="lead fw-normal">Book your Hostel with us</p>
     </div>
@@ -61,7 +61,9 @@
             <% room.forEach((rooms)=>{ %>
             <div class="col col-12 col-lg-4 col-md-12 col-sm-12">
                 <div class="card card-light">
+                    
                     <!-- <span class="badge rounded-pill badge-notification bg-danger" style="position: absolute;"><%= rooms.available %></span>     -->
+                    
                     <img class="card-img-top" src="../uploads/<%= rooms.roomImage %>" alt=""> 
                     <div class="card-body">
                         <h2 class="card-title"><%= rooms.title %></h2>
