@@ -1,7 +1,7 @@
 // ROUTES -  /signup, /login, /logout, AUTHORIZATION - /dashboard, /newRoom, /bookRoom, */payment
 
 const dotenv = require('dotenv');
-const stripe = require("stripe")('sk_test_51LQjgQKi0GzkVsltN8aL7ynswZWiNDRPt4x2cXVtL4VGruTa3xc19CDTAImRWrMVulb4IeGsr339uMcuk1r8x6no00jsRAvjo8');
+// const stripe = require("stripe")('sk_test_51LQjgQKi0GzkVsltN8aL7ynswZWiNDRPt4x2cXVtL4VGruTa3xc19CDTAImRWrMVulb4IeGsr339uMcuk1r8x6no00jsRAvjo8');
 const User = require('../model/hotel_users');
 const Room = require('../model/rooms');
 const {promisify} = require('util');
@@ -56,7 +56,7 @@ router.get("/", async(req,res,next)=>{
         res.render('index', {room:doc});
     }
 });
-
+ 
 router.get("/roomDetail/:id", async(req,res)=>{
     res.locals.user = req.user;
 
@@ -70,6 +70,22 @@ router.get("/roomDetail/:id", async(req,res)=>{
     // const bookings= await Bookings.create(user);
 
     res.render('roomDetail', {rooms:room});
+});
+
+
+// bookings start here
+router.get("/bookings/roomDetail/:id", async(req,res)=>{
+
+    // RoomID
+    const requestedRoomId= req.params.id;
+    
+    // user id and update DB with RoomID
+    const doc = await User.findByIdAndUpdate(req.user._id, {
+        $push: {
+            room: requestedRoomId
+        }
+    });
+    res.redirect('/Mybookings');
 });
 
 // payment route after viewing the room
@@ -109,22 +125,6 @@ router.get("/checkout-session/:id", async(req,res)=>{
 });
 // payment route ends here
 
-
-// bookings start here
-router.get("/bookings/roomDetail/:id", async(req,res)=>{
-
-    // RoomID
-    const requestedRoomId= req.params.id;
-    
-    // user id and update DB with RoomID
-    const doc = await User.findByIdAndUpdate(req.user._id, {
-        $push: {
-            room: requestedRoomId
-        }
-    });
-    res.redirect('/Mybookings');
-});
-
 router.get("/Mybookings", async(req,res)=>{
 
     // Get userId, populate with RoomDB
@@ -155,7 +155,7 @@ router.get("/dashboard", async (req,res,next)=>{
             path:'room',
             model: Room
         });
-
+ 
         const myBookings = details.room;
 
         const room =await Room.find();
